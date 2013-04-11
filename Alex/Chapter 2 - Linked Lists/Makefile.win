@@ -5,8 +5,8 @@ CPP  = g++.exe
 CC   = gcc.exe
 WINDRES = windres.exe
 RES  = 
-OBJ  = main.o linkedList.o $(RES)
-LINKOBJ  = main.o linkedList.o $(RES)
+OBJ  = main.o linkedList.o test.o Problem1.o Problem2.o Problem3.o Problem4.o Problem5.o $(RES)
+LINKOBJ  = main.o linkedList.o test.o Problem1.o Problem2.o Problem3.o Problem4.o Problem5.o $(RES)
 LIBS =  -L"C:/Dev-Cpp/lib"  
 INCS =  -I"C:/Dev-Cpp/include" 
 CXXINCS =  -I"C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include"  -I"C:/Dev-Cpp/include/c++/3.4.2/backward"  -I"C:/Dev-Cpp/include/c++/3.4.2/mingw32"  -I"C:/Dev-Cpp/include/c++/3.4.2"  -I"C:/Dev-Cpp/include" 
@@ -31,3 +31,21 @@ main.o: main.c
 
 linkedList.o: linkedList.c
 	$(CC) -c linkedList.c -o linkedList.o $(CFLAGS)
+
+test.o: test.c
+	$(CC) -c test.c -o test.o $(CFLAGS)
+
+Problem1.o: Problem1.c
+	$(CC) -c Problem1.c -o Problem1.o $(CFLAGS)
+
+Problem2.o: Problem2.c
+	$(CC) -c Problem2.c -o Problem2.o $(CFLAGS)
+
+Problem3.o: Problem3.c
+	$(CC) -c Problem3.c -o Problem3.o $(CFLAGS)
+
+Problem4.o: Problem4.c
+	$(CC) -c Problem4.c -o Problem4.o $(CFLAGS)
+
+Problem5.o: Problem5.c
+	$(CC) -c Problem5.c -o Problem5.o $(CFLAGS)

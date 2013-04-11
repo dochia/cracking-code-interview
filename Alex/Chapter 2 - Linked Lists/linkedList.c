@@ -1,45 +1,27 @@
-#include <stdlib.h>
-#include <stdio.h>
 #include "linkedList.h"
-
-int insertHead(node** head, int value)
-{
-    node* newNode;
-    newNode = (node*) malloc(sizeof(node));
-    newNode->data = value;
-    if (*head == NULL)
-    {
-        *head = newNode;
-        (*head)->next = NULL;   
-        //free(newNode);   
-        return 1;
-    }
-    else
-    {
-        //free(newNode);
-        return 0;
-    }
-}
 
 int insertNodeAtBeginning(node** head, int value)
 {   
-      if ( *head == NULL)
+      node* newNode = (node*) malloc(sizeof(node));
+      if (newNode == NULL)
       {
-          insertHead(head, value);
+          return 0;
       }
       else
       {
-          node* newNode = (node*) malloc(sizeof(node));
           newNode->data = value;
-          if (newNode == NULL)
+          newNode->next = NULL;
+          if (*head == NULL)
           {
-             return 0;            
+               *head = newNode;
+               printf("ADD: Node with value %d has been added as the head of the empty list.\n", value);
+               return 1;
           }
           else
           {
               newNode->next = *head;
               *head = newNode;
-              //free(newNode);
+              printf("ADD: Node with value %d has been added as the head of the list.\n", value);
               return 2;
           }
       }
@@ -47,30 +29,30 @@ int insertNodeAtBeginning(node** head, int value)
 
 int insertNodeAtEnd(node** head, int value)
 {
-    if (insertHead(head, value) == 1)
+    node* newNode = (node*) malloc(sizeof(node));
+    newNode->data = value;
+    newNode->next = NULL;
+    if (*head == NULL && newNode != NULL)
     {
+        *head = newNode;
+        printf("ADD: Node with value %d has been added at the end of the empty list.\n", value);
         return 1;      
     }
     else
     {
-        node* newNode = (node*) malloc(sizeof(node));
-        newNode->data = value;
-        newNode->next = NULL;
         if (newNode == NULL)
         {
             return 0;
         }
         else
         {
-            node* temp = (node*) malloc(sizeof(node));
-            temp = (*head)->next;
+            node* temp = *head;
             while (temp->next != NULL)
             {
                   temp = temp->next;
             }
             temp->next = newNode;
-            //free(temp);
-            //free(newNode);
+            printf("ADD: Node with value %d has been added at the end of the list.\n", value);
             return 1;
         }
     }
@@ -78,7 +60,7 @@ int insertNodeAtEnd(node** head, int value)
 
 int countNodes(node* head)
 {
-    node *temp = (node*)malloc(sizeof(node));
+    node *temp;
     temp = head;
     int counter = 1;
     while (temp->next != NULL)
@@ -86,7 +68,6 @@ int countNodes(node* head)
           temp = temp->next;
           counter++;
     }
-    free(temp);
     return counter;
 }
 
@@ -94,7 +75,8 @@ int insertNodeAtPositionFromBeginning(node** head, int position, int value)
 {
     if (position == 0)
     {
-        insertHead(head, value);      
+        insertNodeAtBeginning(head, value);
+        return 1;    
     }
     else
     {
@@ -107,13 +89,12 @@ int insertNodeAtPositionFromBeginning(node** head, int position, int value)
         }
         else
         {
-            node* temp = (node*) malloc(sizeof(node));
-            temp = (*head);
+            node* temp = (*head);
             int counter = 1;
             int noNodes = countNodes(*head);
             if ( noNodes < position)
             {
-                printf("Position to insert is greater than the lenght of the list.\n");
+                printf("ADD ERROR: Position to insert is greater than the lenght of the list.\n");
                 return 0;
             }
             else
@@ -126,7 +107,7 @@ int insertNodeAtPositionFromBeginning(node** head, int position, int value)
                 if (temp->next == NULL)
                 {
                     temp->next = newNode;  
-                    printf("Adding new node as the end of list.\n");       
+                    printf("ADD: Node with value has been added at the end of the list.\n", value);       
                     //free(newNode);
                     //free(temp); 
                     return 3;
@@ -135,7 +116,7 @@ int insertNodeAtPositionFromBeginning(node** head, int position, int value)
                 {
                      newNode->next = temp->next->next;
                      temp->next = newNode;         
-                     printf("Adding new node with value %d in position %d in the list.\n", value, position);
+                     printf("ADD: Adding new node with value %d in position %d in the list.\n", value, position);
                      //free(temp);
                      //free(newNode);
                      return 4;
@@ -147,32 +128,89 @@ int insertNodeAtPositionFromBeginning(node** head, int position, int value)
 
 int deleteNodeWithValue(node** head, int value)
 {
-    node* temp = (node*) malloc(sizeof(node));
+    node *temp, *prev;
     temp = *head;
-    if (temp->data == value)
+    while (temp != NULL)
     {
-        *head = temp->next;
-        free(temp);
-        return 1;           
+          if (temp->data == value)
+          {
+              if (temp == *head)
+              {
+                 *head = temp->next;
+                 printf("DELETE: Deleting node with value %d found in the head of the list.\n", value);
+                 free(temp);
+                 return 1;
+              }
+              else
+              {
+                  printf("DELETE: Deleting node with value %d found somewhere in the list.\n", value);
+                  prev->next = temp->next;
+                  free(temp);
+                  return 1;
+              }
+          }
+          else
+          {
+              prev = temp;
+              temp = temp->next;
+          }
+    }
+    if (temp == NULL)
+    {
+       printf("DELETE ERROR: The node with value %d was not found in the list.\n", value);
+       return 0;     
+    }
+}
+
+bool isListEmpty(node* head)
+{
+     return (head == NULL);
+}
+
+int deleteNode(node** head, node* element)
+{
+    node* temp = *head;
+    if (temp == element)
+    {
+             *head = element->next;
+             printf("DELETE: Deleting the node %d which is the head of the list.\n", element->data);
+             free(element);
+             return 1;
     }
     else
-    {
-        while (temp->next != NULL && temp->next->data != value)
+    { 
+        while (temp->next != element && temp->next != NULL)
         {
               temp = temp->next;
         }
-        if (temp->next->data == value)
+        if (temp->next == NULL)
         {
-              //temp->next = temp->next->next;
-              free(temp->next->next);
-              temp->next = NULL;
-              return 1;
+               printf("DELETE: Deleting the node with value %d at the end of the list.\n", element->data);
+               return 2;
         }
         else
         {
-            printf("Node with value %d was nod found in the list.\n", value);
-            return 0;
+               temp->next = element->next;
+               printf("DELETE: Deleting the node with value %d found in the list.\n", element->data);
+               return 3;
         }
+        
+    }
+}
+
+int insertNodeAfterNode(node* element, int value)
+{
+    node* p = (node*) malloc(sizeof(node));
+    p->data = value;
+    p->next = NULL;
+    if (element->next == NULL)
+    {
+        element->next = p;
+    }
+    else
+    {
+        p->next = element->next; 
+        element->next = p;
     }
 }
 
@@ -187,5 +225,6 @@ int printListToConsole(node* head)
     }
     free(elem);
     printf("\n");
-    return 0;
+    //system("pause");
+    return 1;
 }
