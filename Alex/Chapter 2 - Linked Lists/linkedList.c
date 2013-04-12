@@ -10,20 +10,10 @@ int insertNodeAtBeginning(node** head, int value)
       else
       {
           newNode->data = value;
-          newNode->next = NULL;
-          if (*head == NULL)
-          {
-               *head = newNode;
-               printf("ADD: Node with value %d has been added as the head of the empty list.\n", value);
-               return 1;
-          }
-          else
-          {
-              newNode->next = *head;
-              *head = newNode;
-              printf("ADD: Node with value %d has been added as the head of the list.\n", value);
-              return 2;
-          }
+          newNode->next = *head;
+          *head = newNode;
+          printf("ADD: Node with value %d has been added as the head of the list.\n", value);
+          return 2;
       }
 } 
 
@@ -223,8 +213,8 @@ int printListToConsole(node* head)
           printf("%d ", elem->data);
           elem = elem->next;
     }
-    free(elem);
     printf("\n");
+    //free(elem);
     //system("pause");
     return 1;
 }

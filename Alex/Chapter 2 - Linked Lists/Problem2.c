@@ -43,7 +43,7 @@ node* findKthElementOfEnd(node* head, int k)
            }
            if (p != NULL)
            {
-                   printf("KthElementOfEnd: Kth element from the end is node with value %d.\n", p->data);
+                   printf("KthElementOfEnd: Kth(%d) element from the end is node with value %d.\n", k, p->data);
                    return p;
            }
            else
