@@ -40,9 +40,9 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit3]
-FileName=Problem1_fixedLenght.h
+FileName=FixedLength.h
 CompileCpp=1
-Folder=
+Folder=Problem1
 Compile=1
 Link=1
 Priority=1000
@@ -50,7 +50,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit2]
-FileName=Problem1_fixedLenght.cpp
+FileName=FixedLength.cpp
 CompileCpp=1
 Folder=Problem1
 Compile=1
