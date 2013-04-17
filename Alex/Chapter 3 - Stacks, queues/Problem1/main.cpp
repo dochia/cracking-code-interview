@@ -18,6 +18,8 @@ int main(int argc, char *argv[])
         my->push(1, 36);
         my->push(2, 142);
         my->push(2, 345);
+        cout << my->peek(2);
+        my->push(2, 876);
         my->push(2, 876);
         my->printStacks();        
         my->pop(0);
@@ -25,9 +27,10 @@ int main(int argc, char *argv[])
         my->pop(1);
         my->pop(2);
         my->printStacks();
+        
     }
     catch(char* str ) {
-      cout << "Exception raised: " << str << endl;
+      printf("\nException Raised: %s \n", str);
    }
    system("PAUSE");
    return 0;

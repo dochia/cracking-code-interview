@@ -26,8 +26,8 @@ void MyStack::push(int stackNo, int value) throw (char*)
 {
      if (this->StacksCounter[stackNo] == this->StackLength - 1)
      {
-         char* s;
-         sprintf(s, "Item %d cannot be added to stackNo %d, reached maximum lenght", value, stackNo);
+         char s[1000];
+         sprintf(s, "Item %d cannot be added to stackNo %d, reached maximum length per stack.", value, stackNo);
          throw s;
      }
      else
