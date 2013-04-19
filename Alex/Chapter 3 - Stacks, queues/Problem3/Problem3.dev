@@ -1,7 +1,7 @@
 [Project]
 FileName=Problem3.dev
 Name=Problem3
-UnitCount=2
+UnitCount=3
 Type=1
 Ver=1
 ObjFiles=
@@ -66,4 +66,14 @@ OriginalFilename=
 ProductName=
 ProductVersion=
 AutoIncBuildNr=0
+
+[Unit3]
+FileName=SetOfStacks.h
+CompileCpp=1
+Folder=Problem3
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
 

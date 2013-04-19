@@ -47,5 +47,23 @@ int SetOfStacks::Pop()
 
 int SetOfStacks::PopAt(int index)
 {
-    return 0;
+     stack<int> tempStack;
+     int len = this->mStacks.size();
+     int value = this->mStacks[index-1].top();
+     this->mStacks[index-1].pop();
+     cout << "Removing element with value " << value << " from stack no " << index << ".\n";
+     while (len != index)
+     {
+           value = this->mStacks[len-1].top();
+           tempStack.push(value);
+           this->Pop();
+           len = this->mStacks.size();
+     }
+     while (!tempStack.empty())
+     {
+           value = tempStack.top();
+           tempStack.pop();
+           this->Push(value);
+     }
+     
 }
